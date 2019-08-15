@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace LogisticApp.Entidades
     public class EntradaLote
     {
         public Usuario registrador { get; private set; }
+
         [Key]
         public string codigo { get; private set; }
         public int cantidadInicial { get; private set; }
@@ -20,6 +22,11 @@ namespace LogisticApp.Entidades
 
         public void decrementarCantidadActual(int cantidad)
         {
+            if (cantidad > cantidadActual || cantidad < 0)
+            {
+                throw new Excepciones.CantidadNoValidaException(cantidad);
+            }
+
             cantidadActual -= cantidad;
         }
 
