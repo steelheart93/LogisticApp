@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Entidades\" />
+    <Folder Include="ControladorasNegocio\" />
+    <Folder Include="Excepciones\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
