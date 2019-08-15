@@ -16,5 +16,10 @@ namespace LogisticApp.Entidades
         private DateTime fechaHoraRegistro { get; set; }
         private string ubicacion { get; set; }
         private string observaciones { get; set; }
+
+        public void decrementarCantidadActual(int cantidad)
+        {
+            cantidadActual -= cantidad;
+        }
     }
 }
