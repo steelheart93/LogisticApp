@@ -7,6 +7,7 @@ namespace LogisticApp.Entidades
 {
     public class EntradaLote
     {
+        private Usuario registrador { get; set; }
         private string codigo { get; set; }
         private int cantidadInicial { get; set; }
         private int cantidadActual { get; set; }
