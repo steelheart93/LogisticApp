@@ -12,7 +12,7 @@ namespace LogisticApp.Entidades
         [Key]
         public string codigo { get; private set; }
         public string nombre { get; set; }
-        public int stockTotal { get; private set; }
+        public int? stockTotal { get; private set; }
         public string familia { get; set; }
         public string descripcion { get; set; }
         public bool activo { get; private set;}

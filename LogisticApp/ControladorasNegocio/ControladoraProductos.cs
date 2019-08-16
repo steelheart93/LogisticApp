@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LogisticApp.Entidades;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,32 +10,36 @@ namespace LogisticApp.ControladorasNegocio
     {
         private ControladoraProductos()
         {
-
+            
         }
 
-        public IEnumerable<Producto> getProductos()
+        public static IEnumerable<Producto> getProductos()
         {
-            return null;
+            return Producto.getProductos();
         }
 
-        public void agregarProducto(Producto producto)
+        public static void agregarProducto(Producto producto)
         {
-
+            Producto.addProducto(producto);
         }
 
-        public IEnumerable<Producto> filtrarProductos(string datoProducto)
+        public static IEnumerable<Producto> filtrarProductos(string datoProducto)
         {
-            return null;
+            return from producto in Producto.getProductos()
+                   where producto.codigo.Contains(datoProducto)
+                    || producto.nombre.ToLower().Contains(datoProducto)
+                    || producto.familia.ToLower().Contains(datoProducto)
+                   select producto;
         }
 
-        public void modificarProducto(Producto producto)
+        public static void modificarProducto(Producto producto)
         {
-
+            Producto.actualizarProducto(producto);
         }
 
-        public void desactivarProducto(string codigoProducto)
+        public static void desactivarProducto(string codigoProducto)
         {
-
+            Producto.desactivarProducto(codigoProducto);
         }
     }
 }
