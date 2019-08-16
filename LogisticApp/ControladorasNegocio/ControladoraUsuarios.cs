@@ -7,6 +7,11 @@ namespace LogisticApp.ControladorasNegocio
 {
     public class ControladoraUsuarios
     {
+        private ControladoraUsuarios()
+        {
+
+        }
+
         public IEnumerable<Usuario> getUsuarios()
         {
             return Usuario.getUsuarios();
@@ -14,11 +19,19 @@ namespace LogisticApp.ControladorasNegocio
 
         public Usuario GetUsuario(string Codigo)
         {
+            if (Usuario.getUsuario(Codigo) == null)
+            {
+                throw new Excepciones.UsuarioNoExisteException(Codigo);
+            }
             return Usuario.getUsuario(codigo);
         }
 
         public void addUsuario(Usuario usuario)
         {
+            if (Usuario.GetUsuario(usuario.GetCodigo()) != null)
+            {
+                throw new Excepciones.UsuarioYaExisteException(usuario.GetCodigo());
+            }
             Usuario.addUsuario(usuario);
         }
 
