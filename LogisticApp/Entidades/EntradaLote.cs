@@ -8,14 +8,21 @@ namespace LogisticApp.Entidades
 {
     public class EntradaLote
     {
+        // TODO: buscar la manera de que el usuario solo ingrese el código del
+        // registrador y que el sistema sea el que ponga el Usuario registrador.
         public Usuario registrador { get; private set; }
 
         [Key]
         public string codigo { get; private set; }
+        // TODO: poner la anotación de que la cantidad inicial sea mayor a 0
         public int cantidadInicial { get; private set; }
+        // TODO: buscar la manera de que la cantidad actual se inicialice con la 
+        // cantidad inicial
         public int cantidadActual { get; private set; }
         public string origen { get; private set; }
         public DateTime fechaExpiracion { get; private set; }
+        // TODO: buscar la manera de que el sistema sea el que ponga la fecha y
+        // hora de registro
         public DateTime fechaHoraRegistro { get; private set; }
         public string ubicacion { get; private set; }
         public string observaciones { get; private set; }
@@ -30,6 +37,7 @@ namespace LogisticApp.Entidades
             cantidadActual -= cantidad;
         }
 
+        // Es opcional poner un constructor privado.
         private EntradaLote()
         {
             Console.WriteLine("Hola soy el constructor privado de EntradaLote, ¿Por alguna razón?");

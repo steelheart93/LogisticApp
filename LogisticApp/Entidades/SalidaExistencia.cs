@@ -8,7 +8,7 @@ namespace LogisticApp.Entidades
 {
     public class SalidaExistencia
     {
-        [key]
+        [Key]
         public string codigo { get; private set; }
         public DateTime fechaHoraRegistro { get; private set; }
         public string destino { get; private set; }
@@ -24,6 +24,7 @@ namespace LogisticApp.Entidades
             {
                 cantidadSalida += kvp.Value;
             }
+            //return (from salida in lotesSalida select salida.Value).Sum();
             return cantidadSalida;
         }
     }
