@@ -14,7 +14,8 @@ namespace LogisticApp.Entidades
 
         [Key]
         public string codigo { get; private set; }
-        // TODO: poner la anotación de que la cantidad inicial sea mayor a 0
+
+        [Range(1, int.MaxValue)]
         public int cantidadInicial { get; private set; }
         // TODO: buscar la manera de que la cantidad actual se inicialice con la 
         // cantidad inicial
