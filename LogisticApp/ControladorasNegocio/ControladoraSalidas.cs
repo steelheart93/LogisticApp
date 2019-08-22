@@ -14,7 +14,7 @@ namespace LogisticApp.ControladorasNegocio
         {
             IEnumerable<Producto> productos = Producto.getProductos();
             IEnumerable<SalidaExistencia> salidas;
-            List<SalidaDetallada> listaSalidas = new List<SalidaDetallada>
+            List<SalidaDetallada> listaSalidas = new List<SalidaDetallada> {};
             foreach (Producto p in productos)
             {
                 salidas = p.getSalidasExistencias();
@@ -24,17 +24,6 @@ namespace LogisticApp.ControladorasNegocio
                 }
             }
             return listaSalidas;
-        }
-
-        public JsonResult filtrarSalidas()
-        {
-            return _context.SalidaExistencias.find();
-        }
-
-        public void addSalida(string codigoProducto, SalidaExistencia salida)
-        {
-            _context.Productos.addSalidaExistencia(salida);
-            _context.SaveChanges();
         }
     }
 }
