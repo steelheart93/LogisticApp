@@ -4,23 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LogisticApp.Entidades;
+using LogisticApp.VistasModelos;
 
 namespace LogisticApp.ControladorasNegocio
 {
-    [Route("api/controladorasNegocio")]
-    [ApiController]
     public class ControladoraSalidas : ControllerBase
     {
-        private readonly <dbcontext> _context;
-
-        public ControladoraSalidas(<dbcontext> context)
+        public IEnumerable<SalidaDetallada> getSalidas()
         {
-            _context = context;
-        }
-
-        public JsonResult getSalidas()
-        {
-            return _context.SalidaExistencias.ToList();
+            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<SalidaExistencia> salidas;
+            List<SalidaDetallada> listaSalidas = new List<SalidaDetallada>
+            foreach (Producto p in productos)
+            {
+                salidas = p.getSalidasExistencias();
+                foreach (SalidaExistencia s in salidas)
+                {
+                    listaSalidas.Add(new SalidaDetallada(s.codigo, s.fechaHoraRegistro, s.destino, s.observaciones, p.codigo, p.nombre, s.lotesSalida, s.registrador));
+                }
+            }
+            return listaSalidas;
         }
 
         public JsonResult filtrarSalidas()
