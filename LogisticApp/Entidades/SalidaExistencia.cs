@@ -42,6 +42,9 @@ namespace LogisticApp.Entidades
 
     public class LoteSalida
     {
+        // Entity Framework requiere que las entidades tengan llave primaria, aunque para el 
+        // modelo de datos no se necesite.
+        public int ID { get; set; }
         public EntradaLote lote { get; private set; }
         public int cantidadSalida { get; private set; }
     }
