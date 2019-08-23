@@ -11,9 +11,9 @@ namespace LogisticApp.Entidades
         public string codigo;
         public string nombre;
         public int stockActual;
-        public string diasCobertura;
+        public double diasCobertura;
         public IEnumerable<EntradaLote> lotes;
-        public InventarioDetallado(string codigo, string nombre, int stockActual, string diasCobertura, IEnumerable<EntradaLote> lotes)
+        public InventarioDetallado(string codigo, string nombre, int stockActual, double diasCobertura, IEnumerable<EntradaLote> lotes)
         {
             this.codigo = codigo;
             this.nombre = nombre;
