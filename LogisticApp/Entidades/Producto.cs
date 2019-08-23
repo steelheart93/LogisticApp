@@ -260,7 +260,7 @@ namespace LogisticApp.Entidades
         {
             int resultado = DateTime.Compare(fechaInicial, fechaFinal);
             
-            Dictionary<string, double> ventas;
+            Dictionary<string, double> ventas = new Dictionary<string, double>();
             double suma=0;
             int meses=0;
             
