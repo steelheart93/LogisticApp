@@ -2,15 +2,11 @@ $(function () {
     $("#registrar").click(function () {
         var $form = $("#formulario");
         var data = getFormData($form);
-        //var respuesta = ModeloRegistroDonativo.existeBenefactor(data["documento"]);
 
-        //if (respuesta) {
         var jsonString = JSON.stringify(data);
-        alert(jsonString);
-        //  ModeloRegistroDonativo.solicitarRegistroDonativo(jsonString);
-        //} else {
-        //alert("El benefactor no se encuentra registrado en el sistema, por favor verifique.");
-        //}
+        console.log(jsonString)
+
+        agregarEntrada(jsonString);
     });
 });
 
@@ -31,14 +27,17 @@ function getFormData($form) {
 /**
  * Función que registra una nueva entrada usando un Web Service.
  */
-solicitarRegistroDonativo(jsonDonativo) {
-    var promesa = $.post("https://localhost:44377/api/ctrl", jsonDonativo);
+function agregarEntrada(json) {
+    var port = prompt("Ingrese el Puerto");
+    var url = "https://localhost:" + port + "/api/entradas";
+
+    var promesa = $.post(url, json);
 
     promesa.done(function (respuesta) {
-        var json = JSON.parse(respuesta);
+        var jsonRespuesta = JSON.parse(respuesta);
     });
 
     promesa.fail(function (respuesta) {
-        var json = JSON.parse(respuesta);
+        var jsonRespuesta = JSON.parse(respuesta);
     });
 }
