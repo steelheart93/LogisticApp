@@ -259,26 +259,35 @@ namespace LogisticApp.Entidades
         public Dictionary<string, double> getPronosticoVentas(DateTime fechaInicial, DateTime fechaFinal)
         {
             int resultado = DateTime.Compare(fechaInicial, fechaFinal);
-            List<SalidaExistencia> mesesalidas;
-
-            double sumaMeses=0;
-            double sumaVentas = 0;
-            double mesesxVentas = 0;
-            double sumaMesesxVentas = 0;
-
+            
+            Dictionary<string, double> ventas;
+            double suma=0;
+            int meses=0;
+            
             if (resultado>=0)
             {
                 throw new PeriodoNoValidoException(fechaInicial, fechaFinal);
             }
+
             foreach (SalidaExistencia salida in this.salidas)
             {
                 if(salida.fechaHoraRegistro >= fechaInicial && salida.fechaHoraRegistro <= fechaFinal)
                 {
-
+                    string mesAno = salida.fechaHoraRegistro.Month.ToString()+salida.fechaHoraRegistro.Year.ToString();
+                    if(ventas.Contains(mesAno)){
+                        ventas[mesAno] = ventas[mesAno] + salida.getCantidadSalida();
+                    }
+                    else{
+                        ventas.Add(mesAno,salida.getCantidadSalida);
+                        meses+=1;
+                    }
+                    suma+=salida.getCantidadSalida;
                 }
-            }
+            }            
 
-            return null;
+            ventas.Add(fechaFinal.AddMonths(1).Month.ToString()+fechaFinal.Year.ToString(),(suma/meses));
+
+            return ventas;
         }
 
     }
