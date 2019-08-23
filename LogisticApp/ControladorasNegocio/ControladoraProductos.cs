@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LogisticApp.VistasModelos;
+using LogisticApp.Persistencia;
 
 namespace LogisticApp.ControladorasNegocio
 {
@@ -15,9 +16,9 @@ namespace LogisticApp.ControladorasNegocio
         ///Consulta en la tabla productos de la base de datos todos los productos
         /// </summary>
         /// <returns>Retorna todos los productos de la base de datos</returns>
-        public static IEnumerable<ProductoDetallado> getProductos()
+        public static IEnumerable<ProductoDetallado> getProductos(AccesoDatos accesoDatos)
         {
-            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<Producto> productos = Producto.getProductos(accesoDatos);
             List<ProductoDetallado> listaProductos = new List<ProductoDetallado> {};
             foreach (Producto p in productos)
             {
@@ -33,9 +34,9 @@ namespace LogisticApp.ControladorasNegocio
         /// </summary>
         /// <param name="producto">producto a ingresar</param>
         /// <returns>Retorna el objeto producto ingresado</returns>
-        public static void agregarProducto(Producto producto)
+        public static void agregarProducto(Producto producto, AccesoDatos accesoDatos)
         {
-            Producto.addProducto(producto);
+            Producto.addProducto(producto, accesoDatos);
         }
 
         ///<summary>
@@ -43,9 +44,9 @@ namespace LogisticApp.ControladorasNegocio
         /// </summary>
         /// <param name="datoProducto">codigo o nombre o familia del producto deseado</param>
         /// <returns>Retorna el objeto producto que se busca</returns>
-        public static IEnumerable<ProductoDetallado> filtrarProductos(string datoProducto)
+        public static IEnumerable<ProductoDetallado> filtrarProductos(string datoProducto, AccesoDatos accesoDatos)
         {
-            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<Producto> productos = Producto.getProductos(accesoDatos);
             List<ProductoDetallado> listaProducto = new List<ProductoDetallado> { };
 
             foreach (Producto p in productos)
@@ -64,18 +65,18 @@ namespace LogisticApp.ControladorasNegocio
         ///Actualiza en la base de datos en la tabla producto un producto
         /// </summary>
         /// <param name="producto">producto a ser actualizado</param>
-        public static void modificarProducto(Producto producto)
+        public static void modificarProducto(Producto producto, AccesoDatos accesoDatos)
         {
-            Producto.actualizarProducto(producto);
+            Producto.actualizarProducto(producto, accesoDatos);
         }
 
         ///<summary>
         ///Desactiva el atributo activo de un producto
         /// </summary>
         /// <param name="codigo">codigo del producto a desactivar</param>
-        public static void desactivarProducto(string codigoProducto)
+        public static void desactivarProducto(string codigoProducto, AccesoDatos accesoDatos)
         {
-            Producto.desactivarProducto(codigoProducto);
+            Producto.desactivarProducto(codigoProducto, accesoDatos);
         }
     }
 }

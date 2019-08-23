@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using LogisticApp.Excepciones;
+using LogisticApp.Persistencia;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LogisticApp.Entidades
 {
@@ -10,7 +14,8 @@ namespace LogisticApp.Entidades
     {
 
         [Key]
-        public string codigo { get; private set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string codigo { get; set; }
         public string nombre { get; set; }
         public int stockTotal { get; private set; }
         public string familia { get; set; }
@@ -19,6 +24,11 @@ namespace LogisticApp.Entidades
         public ICollection<EntradaLote> entradas { get; private set; }
         public ICollection<SalidaExistencia> salidas { get; private set; }
 
+
+        private Producto()
+        {
+            this.activo = true;
+        }
 
         ///<summary>
         ///Constructor parametrizado
@@ -38,9 +48,9 @@ namespace LogisticApp.Entidades
         ///Consulta en la tabla productos de la base de datos todos los productos
         /// </summary>
         /// <returns>Retorna todos los productos de la base de datos</returns>
-        public static IEnumerable<Producto> getProductos()
+        public static IEnumerable<Producto> getProductos(AccesoDatos accesoDatos)
         {
-            return null;
+            return accesoDatos.Productos.Where(p => p.activo);
         }
 
 
@@ -49,9 +59,14 @@ namespace LogisticApp.Entidades
         /// </summary>
         /// <param name="codigo">codigo del producto deseado</param>
         /// <returns>Retorna el objeto producto que se busca</returns>
-        public static Producto getProducto(string codigo)
+        public static Producto getProducto(string codigo, AccesoDatos datos)
         {
-            return null;
+            Producto producto = datos.Productos.Find(codigo);
+            if (producto == null)
+            {
+                throw new ProductoNoExisteException(codigo);
+            }
+            return producto;
         }
 
         ///<summary>
@@ -59,30 +74,56 @@ namespace LogisticApp.Entidades
         /// </summary>
         /// <param name="producto">producto a ingresar</param>
         /// <returns>Retorna el objeto producto ingresado</returns>
-        public static Producto addProducto(Producto producto)
+        public static void addProducto(Producto producto, AccesoDatos accesoDatos)
         {
-            return null;
+            try
+            {
+                getProducto(producto.codigo, accesoDatos);
+                throw new ProductoYaExisteException(producto.codigo);
+            } catch (ProductoNoExisteException) { }
+            accesoDatos.Productos.Add(producto);
+            accesoDatos.SaveChanges();
         }
 
         ///<summary>
         ///Actualiza en la base de datos en la tabla producto un producto
         /// </summary>
         /// <param name="producto">producto a ser actualizado</param>
-        public static void actualizarProducto(Producto producto)
+        public static void actualizarProducto(Producto productoNuevo, AccesoDatos accesoDatos)
         {
-
+            Producto productoAntiguo = getProducto(productoNuevo.codigo, accesoDatos); // Si no existe arroja exepción.
+            productoAntiguo.copiarse(productoNuevo);
+            accesoDatos.Entry(productoAntiguo).State = EntityState.Modified;
+            accesoDatos.SaveChanges();
         }
 
         ///<summary>
         ///Desactiva el atributo activo de un producto
         /// </summary>
         /// <param name="codigo">codigo del producto a desactivar</param>
-        public static void desactivarProducto(string codigo)
+        public static void desactivarProducto(string codigo, AccesoDatos accesoDatos)
         {
-            Producto producto = getProducto(codigo);
+            Producto producto = getProducto(codigo, accesoDatos);
             producto.desactivar();
-            actualizarProducto(producto);
+            accesoDatos.Entry(producto).State = EntityState.Modified;
+            accesoDatos.SaveChanges();
         }
+
+        ///<summary>
+        ///Copia cada parametro de un nuevo producto al actual
+        /// </summary>
+        /// <param name="otro">Producto a ser copiado</param>
+        public void copiarse(Producto otro)
+        {
+            this.codigo = otro.codigo;
+            this.nombre = otro.nombre;
+            this.stockTotal = otro.stockTotal;
+            this.familia = otro.familia;
+            this.descripcion = otro.descripcion;
+            this.activo = otro.activo;
+            this.entradas = otro.entradas;
+            this.salidas = otro.salidas;
+    }
 
         ///<summary>
         ///Consulta todas las entradas asociadas al producto

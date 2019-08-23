@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,19 +13,19 @@ namespace LogisticApp.ControladorasNegocio
 
         }
 
-        public JsonResult getIndicesRotacion(DateTime fecha)
+        public JsonResult GetIndicesRotacion(DateTime fecha)
         {
-
+            return null;
         }
 
         public JsonResult filtrarIndicesRotacion(DateTime fecha, string datoProducto)
         {
-
+            return null;
         }
 
         public JsonResult getIndicesRotacionProducto(string codigoProducto, DateTime fechaInicial, DateTime fechaFinal)
         {
-
+            return null;
         }
     }
 }
