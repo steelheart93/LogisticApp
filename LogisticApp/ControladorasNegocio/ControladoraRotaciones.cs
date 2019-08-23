@@ -15,7 +15,7 @@ namespace LogisticApp.ControladorasNegocio
 
         public JsonResult GetIndicesRotacion(DateTime fecha)
         {
-            return null;
+            
         }
 
         public JsonResult filtrarIndicesRotacion(DateTime fecha, string datoProducto)

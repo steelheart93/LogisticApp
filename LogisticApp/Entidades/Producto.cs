@@ -141,7 +141,7 @@ namespace LogisticApp.Entidades
         public IEnumerable<EntradaLote> getLotesActuales()
         {
             return from lote in entradas
-                   where lote.cantidadActual > 0
+                   where lote.CantidadActual > 0
                    select lote;
         }
 
@@ -169,7 +169,7 @@ namespace LogisticApp.Entidades
         public void addEntradaLote(EntradaLote entradaLote)
         {
             entradas.Add(entradaLote);
-            stockTotal += entradaLote.cantidadActual;
+            stockTotal += entradaLote.CantidadActual;
         }
 
         ///<summary>
@@ -177,12 +177,15 @@ namespace LogisticApp.Entidades
         /// </summary>
         /// <param name="salidaExistencia">Engresa la salida deseada</param>
         public void addSalidaExistencia(SalidaExistencia salidaExistencia)
-        {
-            salidas.Add(salidaExistencia);
-            // TODO: verificar que la cantidad de salida no supere la cantidad actual de producto
-            foreach (KeyValuePair<EntradaLote, int> kvp in salidaExistencia.lotesSalida)
+        { 
+            if (this.stockTotal >= salidaExistencia.getCantidadSalida())
             {
-                stockTotal -= kvp.Value;
+                salidas.Add(salidaExistencia);
+                this.stockTotal -= salidaExistencia.getCantidadSalida();
+            }
+            else
+            {
+                throw new CantidadNoValidaException(salidaExistencia.getCantidadSalida());
             }
         }
 
@@ -199,13 +202,7 @@ namespace LogisticApp.Entidades
             return null;
         }
 
-        /// <summary>
-        /// Obtiene los días de cobertura de un producto
-        /// </summary>
-        /// <param name="fechaInicial">Fecha inicial para el cálculo</param>
-        /// <param name="fechaFinal">Fecha final para el cálculo</param>
-        /// <returns>Días de cobertura de un producto(double)</returns>
-        ///<summary>
+
         ///Consulta los dias de cobertura del producto
         /// </summary>
         /// <param name="fechaFinal">fecha final del periodo deseado</param>
