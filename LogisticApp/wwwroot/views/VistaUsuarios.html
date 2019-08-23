@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>LogisticApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/Bootstrap.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/Estilos.css" />
+    <script src="../js/JQuery.js"></script>
+    <script src="../js/Bootstrap.js"></script>
+    <script src="../js/ControlEntradas.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Inicio, NAVBAR fixed-top -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+            <a class="navbar-brand" href="../index.html">LogisticApp</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#contenido"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="contenido">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="VistaProductos.html">Productos</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="VistaEntradas.html">Entradas</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="VistaSalidas.html">Salidas</a>
+                    </li>
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <span class="navbar-text mr-sm-2" id="usuario">Pedro Pablo Perez Piedrahita (Operario)</span>
+                    <button class="btn btn-danger my-2 my-sm-0" type="button" id="salir">Salir</button>
+                </form>
+            </div>
+        </nav>
+        <br><br>
+        <!-- Fin, NAVBAR fixed-top -->
+
+        <br>
+        <h1>Gestionar Entradas</h1>
+        <hr class="separador">
+
+        <br>
+        <form id="formulario">
+            <div class="row form-group">
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" name="dato"
+                           placeholder="Buscar entrada por ID, Ubicación, Origen o Nombre de Producto">
+                </div>
+                <div class="col-lg-1">
+                    <button type="button" class="btn btn-primary" id="buscar">Buscar</button>
+                </div>
+                <div class="col-lg-1">
+                    <button type="button" class="btn btn-primary" id="registrar">Registrar Nueva Entrada</button>
+                </div>
+
+            </div>
+        </form>
+
+        <br>
+        <table class="table table-bordered table-striped table-dark">
+            <thead class="bg-danger">
+                <tr>
+                    <th>ID Entrada - Lote</th>
+                    <th>Fecha - Hora</th>
+                    <th>Ubicación</th>
+                    <th>Cantidad</th>
+                    <th>Origen</th>
+                    <th>COD Producto</th>
+                    <th>Nombre Producto</th>
+                    <th>COD Registrador</th>
+                    <th>Nombre Registrador</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+</body>
+
+</html>
