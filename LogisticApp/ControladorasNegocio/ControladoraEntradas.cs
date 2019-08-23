@@ -1,15 +1,11 @@
-﻿using LogisticApp.Entidades;
-using LogisticApp.Persistencia;
-using LogisticApp.VistasModelos;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LogisticApp.ControladorasNegocio
 {
-    public class ControladoraEntradas : ControllerBase
+    public class ControladoraEntradas
     {
         /**
          * Método que retorna la información de las Entrada para la Vista
@@ -24,7 +20,7 @@ namespace LogisticApp.ControladorasNegocio
                 IEnumerable<EntradaLote> entradas = p.getEntradasLotes();
                 foreach (EntradaLote e in entradas)
                 {
-                    Usuario r = e.Registrador;
+                    r = e.Registrador;
                     string nombreCompleto = r.Nombres + r.Apellidos;
 
                     listaEntradas.Add(new EntradaDetallada(e.Codigo, e.FechaHoraRegistro,
@@ -61,7 +57,7 @@ namespace LogisticApp.ControladorasNegocio
                     if (e.Codigo == datoEntrada || e.Ubicacion == datoEntrada ||
                         e.Origen == datoEntrada || p.nombre == datoEntrada)
                     {
-                        Usuario r = e.Registrador;
+                        r = e.Registrador;
                         string nombreCompleto = r.Nombres + r.Apellidos;
 
                         listaEntradas.Add(new EntradaDetallada(e.Codigo, e.FechaHoraRegistro,

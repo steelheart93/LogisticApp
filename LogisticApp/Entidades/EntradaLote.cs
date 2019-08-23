@@ -13,6 +13,9 @@ namespace LogisticApp.Entidades
         // registrador y que el sistema sea el que ponga el Usuario registrador.
         public Usuario Registrador { get; private set; }
 
+        [ForeignKey("registrador")]
+        public string CodigoRegistrador { get; private set; }
+
         [Key]
         public string Codigo { get; private set; }
 
