@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>LogisticApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/Bootstrap.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/Estilos.css" />
+    <script src="../js/JQuery.js"></script>
+    <script src="../js/ControlEntradas"></script>
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <h1>Entradas</h1>
+        <hr class="separador">
+
+        <br>
+        <form id="formulario">
+            <div class="row form-group">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="dato"
+                           placeholder="Buscar entrada por ID, Ubicación, Origen o Nombre de Producto">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary" id="buscar">Buscar</button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary" id="registrar">Registrar Nueva Entrada</button>
+                </div>
+
+            </div>
+        </form>
+
+        <br>
+        <table class="table table-bordered table-striped table-dark">
+            <thead class="bg-danger">
+            <th>ID Entrada - Lote</th>
+            <th>Fecha - Hora</th>
+            <th>Ubicación</th>
+            <th>Cantidad</th>
+            <th>Origen</th>
+            <th>COD Producto</th>
+            <th>Nombre Producto</th>
+            <th>COD Registrador</th>
+            <th>Nombre Registrador</th>
+            <th>Observaciones</th>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+</body>
+
+</html>

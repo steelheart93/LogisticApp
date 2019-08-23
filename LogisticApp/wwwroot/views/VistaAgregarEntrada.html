@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>LogisticApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/Bootstrap.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/Estilos.css" />
+    <script src="../js/JQuery.js"></script>
+    <script src="../js/ControlAgregarEntrada"></script>
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <h1>Agregar Entrada</h1>
+        <hr class="separador">
+
+        <br>
+        <form id="formulario">
+            <div class="form-group">
+                <label for="ubicacion">Ubicación</label>
+                <input type="text" class="form-control" name="ubicacion" placeholder="Ubicación">
+            </div>
+            <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" class="form-control" name="cantidad" placeholder="Cantidad">
+            </div>
+            <div class="form-group">
+                <label for="origen">Origen</label>
+                <input type="text" class="form-control" name="origen" placeholder="Origen">
+            </div>
+            <div class="form-group">
+                <label for="observaciones">Observaciones</label>
+                <input type="text" class="form-control" name="observaciones" placeholder="Observaciones">
+            </div>
+            <div class="form-group">
+                <label for="fechaExp">Fecha de Expiración</label>
+                <input type="datetime-local" class="form-control" name="fechaExp" placeholder="Fecha de Expiración">
+            </div>
+            <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
+        </form>
+    </div>
+</body>
+
+</html>
