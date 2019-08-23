@@ -31,16 +31,31 @@ namespace LogisticApp.Entidades
         public string Direccion { get; set; }
         public bool Activo { get; private set; }
 
+        /// <summary>
+        /// Constructor privado de la clase
+        /// Inicializa el atributo Activo en true
+        /// </summary>
         private Usuario()
         {
             Activo = true;
         }
 
+        /// <summary>
+        /// Consulta todos los usuarios en la base de datos
+        /// </summary>
+        /// <param name="accesoDatos"></param>
+        /// <returns>Retorna la lista de usuarios activos</returns>
         public static IEnumerable<Usuario> getUsuarios(AccesoDatos accesoDatos)
         {
             return accesoDatos.Usuarios.Where(u => u.Activo);
         }
 
+        /// <summary>
+        /// Consulta un usuario por su código
+        /// </summary>
+        /// <param name="Codigo"> Código del usuario a consultar</param>
+        /// <param name="datos"></param>
+        /// <returns> El usuario con el codigo ingresado</returns>
         public static Usuario GetUsuario(string Codigo, AccesoDatos datos)
         {
             Usuario usuario = datos.Usuarios.Find(Codigo);
@@ -51,6 +66,11 @@ namespace LogisticApp.Entidades
             return usuario;
         }
 
+        /// <summary>
+        /// Método para agregar un usuario a la base de datos
+        /// </summary>
+        /// <param name="usuario"> El usuario a ingresar</param>
+        /// <param name="accesoDatos"></param>
         public static void addUsuario(Usuario usuario, AccesoDatos accesoDatos)
         {
             try
@@ -62,6 +82,11 @@ namespace LogisticApp.Entidades
             accesoDatos.SaveChanges();
         }
 
+        /// <summary>
+        /// Actualiza los datos de un usuario
+        /// </summary>
+        /// <param name="usuarioNuevo"> Datos actualizados del usuario</param>
+        /// <param name="accesoDatos"></param>
         public static void actualizarUsuario(Usuario usuarioNuevo, AccesoDatos accesoDatos)
         {
             Usuario usuarioAntiguo = GetUsuario(usuarioNuevo.Codigo, accesoDatos); // Si no existe arroja exepción.
@@ -70,6 +95,11 @@ namespace LogisticApp.Entidades
             accesoDatos.SaveChanges();
         }
 
+        /// <summary>
+        /// Método para desactivar el atributo Activo de un usuario
+        /// </summary>
+        /// <param name="codigo"> Código del usuario a desactivar </param>
+        /// <param name="accesoDatos"></param>
         public static void desactivarUsuario(string CodigoUsuario, AccesoDatos accesoDatos)
         {
             Usuario usuario = GetUsuario(CodigoUsuario, accesoDatos);
@@ -78,11 +108,18 @@ namespace LogisticApp.Entidades
             accesoDatos.SaveChanges();
         }
 
+        /// <summary>
+        /// Asigna false al atributo Activo
+        /// </summary>
         public void desactivar()
         {
             Activo = false;
         }
 
+        /// <summary>
+        /// Asigna datos actualizados a los atributos del usuario
+        /// </summary>
+        /// <param name="otro"></param>
         public void copiarse(Usuario otro)
         {
             this.Documento = otro.Documento;
