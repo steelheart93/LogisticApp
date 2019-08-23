@@ -13,7 +13,7 @@ namespace LogisticApp.ControladorasNegocio
         /**
          * Método que retorna la información de las Entrada para la Vista
          */
-        public IEnumerable<EntradaDetallada> GetEntradas(AccesoDatos accesoDatos)
+        public static IEnumerable<EntradaDetallada> GetEntradas(AccesoDatos accesoDatos)
         {
             List<EntradaDetallada> listaEntradas = new List<EntradaDetallada> { };
 
@@ -38,7 +38,7 @@ namespace LogisticApp.ControladorasNegocio
         /**
          * Método agrega una nueva entrada al Contexto
          */
-        public void AddEntrada(string codigoProducto, EntradaLote entrada, AccesoDatos accesoDatos)
+        public static void AddEntrada(string codigoProducto, EntradaLote entrada, AccesoDatos accesoDatos)
         {
             Producto p = Producto.getProducto(codigoProducto, accesoDatos);
             p.addEntradaLote(entrada);
@@ -47,7 +47,7 @@ namespace LogisticApp.ControladorasNegocio
         /**
          * Método que retorna la lista de Entradas Filtradas por un dato de la Entrada.
          */
-        public IEnumerable<EntradaDetallada> GetEntradas(String datoEntrada, AccesoDatos accesoDatos)
+        public static IEnumerable<EntradaDetallada> FiltrarEntradas(String datoEntrada, AccesoDatos accesoDatos)
         {
             List<EntradaDetallada> listaEntradas = new List<EntradaDetallada> { };
 
