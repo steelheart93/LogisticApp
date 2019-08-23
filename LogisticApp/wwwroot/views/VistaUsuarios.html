@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="../css/Estilos.css" />
     <script src="../js/JQuery.js"></script>
     <script src="../js/Bootstrap.js"></script>
-    <script src="../js/ControlEntradas.js"></script>
+    <script src="../js/ControlUsuarios.js"></script>
 </head>
 
 <body>
@@ -28,18 +28,12 @@
             <div class="collapse navbar-collapse" id="contenido">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="VistaProductos.html">Productos</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="VistaEntradas.html">Entradas</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="VistaSalidas.html">Salidas</a>
+                        <a class="nav-link" href="VistaUsuarios.html">Usuarios</a>
                     </li>
                 </ul>
 
                 <form class="form-inline my-2 my-lg-0">
-                    <span class="navbar-text mr-sm-2" id="usuario">Pedro Pablo Perez Piedrahita (Operario)</span>
+                    <span class="navbar-text mr-sm-2" id="usuario">Pedro Pablo Perez Piedrahita (Administrador)</span>
                     <button class="btn btn-danger my-2 my-sm-0" type="button" id="salir">Salir</button>
                 </form>
             </div>
@@ -48,7 +42,7 @@
         <!-- Fin, NAVBAR fixed-top -->
 
         <br>
-        <h1>Gestionar Entradas</h1>
+        <h1>Gestionar Usuarios</h1>
         <hr class="separador">
 
         <br>
@@ -56,13 +50,13 @@
             <div class="row form-group">
                 <div class="col-lg-8">
                     <input type="text" class="form-control" name="dato"
-                           placeholder="Buscar entrada por ID, Ubicación, Origen o Nombre de Producto">
+                           placeholder="Buscar entrada por COD, Documento, Nombres o Apellidos">
                 </div>
                 <div class="col-lg-1">
                     <button type="button" class="btn btn-primary" id="buscar">Buscar</button>
                 </div>
                 <div class="col-lg-1">
-                    <button type="button" class="btn btn-primary" id="registrar">Registrar Nueva Entrada</button>
+                    <button type="button" class="btn btn-primary" id="registrar">Registrar Nuevo Usuario</button>
                 </div>
 
             </div>
@@ -72,16 +66,16 @@
         <table class="table table-bordered table-striped table-dark">
             <thead class="bg-danger">
                 <tr>
-                    <th>ID Entrada - Lote</th>
-                    <th>Fecha - Hora</th>
-                    <th>Ubicación</th>
-                    <th>Cantidad</th>
-                    <th>Origen</th>
-                    <th>COD Producto</th>
-                    <th>Nombre Producto</th>
-                    <th>COD Registrador</th>
-                    <th>Nombre Registrador</th>
-                    <th>Observaciones</th>
+                    <th>COD Usuario</th>
+                    <th>Documento</th>
+                    <th>Perfil</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
+                    <th>Contraseña</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody id="tbody"></tbody>

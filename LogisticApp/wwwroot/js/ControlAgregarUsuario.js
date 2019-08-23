@@ -6,7 +6,7 @@ $(function () {
         var jsonString = JSON.stringify(data);
         console.log(jsonString)
 
-        agregarEntrada(jsonString);
+        agregarUsuario(jsonString);
     });
 });
 
@@ -25,11 +25,11 @@ function getFormData($form) {
 }
 
 /**
- * Función que registra una nueva entrada usando un Web Service.
+ * Función que registra un nuevo Usuario usando un Web Service.
  */
-function agregarEntrada(json) {
+function agregarUsuario(json) {
     var port = prompt("Ingrese el Puerto");
-    var url = "https://localhost:" + port + "/api/entradas";
+    var url = "https://localhost:" + port + "/api/usuarios";
 
     var promesa = $.post(url, json);
 
