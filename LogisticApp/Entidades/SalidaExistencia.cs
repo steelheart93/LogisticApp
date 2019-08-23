@@ -15,8 +15,12 @@ namespace LogisticApp.Entidades
         public string observaciones { get; private set; }
 
         public Dictionary<EntradaLote, int> lotesSalida { get; private set; }
-        public Usuario? registrador { get; private set; }
+        public Usuario registrador { get; private set; }
 
+        /// <summary>
+        /// Método usado para obtener la cantidad de productos totales de una salida
+        /// </summary>        /// 
+        /// <returns>cantidad de productos totales de la salida(int)</returns>
         public int getCantidadSalida()
         {
             int cantidadSalida = 0;

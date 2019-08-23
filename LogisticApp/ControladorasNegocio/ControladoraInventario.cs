@@ -7,25 +7,58 @@ using LogisticApp.Entidades;
 
 namespace LogisticApp.ControladorasNegocio
 {
-    [Route("api/controladorasNegocio")]
-    [ApiController]
     public class ControladoraInventario : ControllerBase
     {
-        private readonly <dbcontext> _context;
-
-        public ControladoraInventario(<dbcontext> context)
+        /// <summary>
+        /// Obtiene una lista de todos los productos con su stock actual, lotes y dias de cobertura
+        /// </summary>
+        /// <returns>lista de todos los productos con su stock actual, lotes y dias de cobertura</returns>
+        public IEnumerable<SalidaDetallada> getInventario()
         {
-            _context = context;
+            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<SalidaExistencia> salidas;
+            List<SalidaDetallada> listaSalidas = new List<SalidaDetallada> { };
+            foreach (Producto p in productos)
+            {
+                salidas = p.getSalidasExistencias();
+                double diasCobertura = p.getDiasCobertura();
+                int stockActual = 0;
+                IEnumerable<EntradaLote> lotes = p.getEntradasLotes();
+                foreach (EntradaLote l in lotes)
+                {
+                    stockActual += l.cantidadActual;
+                }
+                listaSalidas.Add(new InventarioDetallado(p.codigo, p.nombre, stockActual, diasCobertura, lotes));
+                
+            }
+            return listaSalidas;
         }
-
-        public JsonResult getInventario()
+        /// <summary>
+        /// Filtra el inventario según el parámetro de texto que recibe
+        /// </summary>
+        /// <param name="datoProducto">texto según el cual se realiza el filtrado</param>
+        /// <returns>Lista de salidas que coinciden con la búsqueda(JsonResult)</returns>
+        public IEnumerable<SalidaDetallada> filtrarInventario(string datoProducto)
         {
-            return _context.Productos.ToList();
-        }
-
-        public JsonResult filtrarInventario(string datosProducto)
-        {
-            return _context.SalidaExistencias.find(datosProducto);
+            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<SalidaExistencia> salidas;
+            List<SalidaDetallada> listaSalidas = new List<SalidaDetallada> { };
+            foreach (Producto p in productos)
+            {
+                if (p.nombre == datoProducto || p.codigo == datoProducto)
+                {
+                    salidas = p.getSalidasExistencias();
+                    double diasCobertura = p.getDiasCobertura();
+                    int stockActual = 0;
+                    IEnumerable<EntradaLote> lotes = p.getEntradasLotes();
+                    foreach (EntradaLote l in lotes)
+                    {
+                        stockActual += l.cantidadActual;
+                    }
+                    listaSalidas.Add(new InventarioDetallado(p.codigo, p.nombre, stockActual, diasCobertura, lotes));
+                }
+            }
+            return listaSalidas;
         }
     }
 }
