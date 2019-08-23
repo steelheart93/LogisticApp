@@ -14,9 +14,9 @@ namespace LogisticApp.Entidades
         public string observaciones;
         public string codigoProducto;
         public string nombreProducto;
-        public Dictionary<EntradaLote, int> lotesSalida;
+        public ICollection<LoteSalida> lotesSalida;
         public Usuario registrador;
-        public SalidaDetallada(string codigo, DateTime fechaHoraRegistro, string destino, string observaciones, string codigoProducto, string nombreProducto, Dictionary<EntradaLote, int> lotesSalida, Usuario registrador)
+        public SalidaDetallada(string codigo, DateTime fechaHoraRegistro, string destino, string observaciones, string codigoProducto, string nombreProducto, ICollection<LoteSalida> lotesSalida, Usuario registrador)
         {
             this.codigo = codigo;
             this.fechaHoraRegistro = fechaHoraRegistro;

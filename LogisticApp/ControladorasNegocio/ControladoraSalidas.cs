@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LogisticApp.Entidades;
+using LogisticApp.Persistencia;
 
 namespace LogisticApp.ControladorasNegocio
 {
@@ -13,9 +14,9 @@ namespace LogisticApp.ControladorasNegocio
         /// Obtiene todas los registros de salidas de productos
         /// </summary>
         /// <returns>salidas de productos(JsonResult)</returns>
-        public IEnumerable<SalidaDetallada> getSalidas()
+        public static IEnumerable<SalidaDetallada> getSalidas(AccesoDatos accesoDatos)
         {
-            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<Producto> productos = Producto.getProductos(accesoDatos);
             IEnumerable<SalidaExistencia> salidas;
             List<SalidaDetallada> listaSalidas = new List<SalidaDetallada> {};
             foreach (Producto p in productos)
@@ -33,9 +34,9 @@ namespace LogisticApp.ControladorasNegocio
         /// </summary>
         /// <param name="codigoProducto">Código del producto al que se le agregará la salida</param>
         /// <param name="salida">Registro de la salida con todos los datos necesarios</param>
-        public void addSalida(string codigoProducto, SalidaExistencia salida)
+        public static void addSalida(string codigoProducto, SalidaExistencia salida, AccesoDatos accesoDatos)
         {
-            Producto p = Producto.getProducto(codigoProducto);
+            Producto p = Producto.getProducto(codigoProducto, accesoDatos);
             p.addSalidaExistencia(salida);
         }
         /// <summary>
@@ -43,9 +44,9 @@ namespace LogisticApp.ControladorasNegocio
         /// </summary>
         /// <param name="codigoProducto">Código del producto del que se desea obtener los lotes</param>
         /// <returns>Lotes del producto referenciado(IEnumerable<EntradaLote>)</returns>
-        public IEnumerable<EntradaLote> getLotesProducto(string codigoProducto)
+        public static IEnumerable<EntradaLote> getLotesProducto(string codigoProducto, AccesoDatos accesoDatos)
         {
-            Producto p = Producto.getProducto(codigoProducto);
+            Producto p = Producto.getProducto(codigoProducto, accesoDatos);
             return p.getEntradasLotes();
         }
         /// <summary>
@@ -53,9 +54,9 @@ namespace LogisticApp.ControladorasNegocio
         /// </summary>
         /// <param name="datoSalida">dato por medio del cual se hace el filtrado</param>
         /// <returns>Lista de salidas que coinciden con la búsqueda(JsonResult)</returns>
-        public IEnumerable<SalidaDetallada> filtrarSalidas(string datoSalida)
+        public static IEnumerable<SalidaDetallada> filtrarSalidas(string datoSalida, AccesoDatos accesoDatos)
         {
-            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<Producto> productos = Producto.getProductos(accesoDatos);
             IEnumerable<SalidaExistencia> salidas;
             List<SalidaDetallada> listaSalidas = new List<SalidaDetallada> { };
             foreach (Producto p in productos)

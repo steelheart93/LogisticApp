@@ -15,8 +15,10 @@ namespace LogisticApp.Entidades
         public string destino { get; private set; }
         public string observaciones { get; private set; }
 
-        [NotMapped]
-        public Dictionary<EntradaLote, int> lotesSalida { get; private set; }
+        //[NotMapped]
+        //public Dictionary<EntradaLote, int> lotesSalida { get; private set; }
+
+        public ICollection<LoteSalida> lotesSalida { get; private set; }
         public Usuario registrador { get; private set; }
 
         [ForeignKey("registrador")]
@@ -29,12 +31,18 @@ namespace LogisticApp.Entidades
         public int getCantidadSalida()
         {
             int cantidadSalida = 0;
-            foreach (KeyValuePair<EntradaLote, int> kvp in lotesSalida)
+            foreach (LoteSalida lote in lotesSalida)
             {
-                cantidadSalida += kvp.Value;
+                cantidadSalida += lote.cantidadSalida;
             }
             //return (from salida in lotesSalida select salida.Value).Sum();
             return cantidadSalida;
         }
+    }
+
+    public class LoteSalida
+    {
+        public EntradaLote lote { get; private set; }
+        public int cantidadSalida { get; private set; }
     }
 }

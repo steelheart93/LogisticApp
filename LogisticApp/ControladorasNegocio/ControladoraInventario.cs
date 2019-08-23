@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LogisticApp.Entidades;
+using LogisticApp.Persistencia;
 using System;
 
 namespace LogisticApp.ControladorasNegocio
@@ -14,9 +15,9 @@ namespace LogisticApp.ControladorasNegocio
         /// Obtiene una lista de todos los productos con su stock actual, lotes y dias de cobertura
         /// </summary>
         /// <returns>lista de todos los productos con su stock actual, lotes y dias de cobertura</returns>
-        public IEnumerable<InventarioDetallado> getInventario()
+        public static IEnumerable<InventarioDetallado> getInventario(AccesoDatos accesoDatos)
         {
-            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<Producto> productos = Producto.getProductos(accesoDatos);
             IEnumerable<SalidaExistencia> salidas;
             List<InventarioDetallado> listaInventario = new List<InventarioDetallado> { };
             foreach (Producto p in productos)
@@ -27,7 +28,7 @@ namespace LogisticApp.ControladorasNegocio
                 IEnumerable<EntradaLote> lotes = p.getEntradasLotes();
                 foreach (EntradaLote l in lotes)
                 {
-                    stockActual += l.cantidadActual;
+                    stockActual += l.CantidadActual;
                 }
                 listaInventario.Add(new InventarioDetallado(p.codigo, p.nombre, stockActual, diasCobertura, lotes));
                 
@@ -39,9 +40,9 @@ namespace LogisticApp.ControladorasNegocio
         /// </summary>
         /// <param name="datoProducto">texto según el cual se realiza el filtrado</param>
         /// <returns>Lista de salidas que coinciden con la búsqueda(JsonResult)</returns>
-        public IEnumerable<InventarioDetallado> filtrarInventario(string datoProducto)
+        public static IEnumerable<InventarioDetallado> filtrarInventario(string datoProducto, AccesoDatos accesoDatos)
         {
-            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<Producto> productos = Producto.getProductos(accesoDatos);
             IEnumerable<SalidaExistencia> salidas;
             List<InventarioDetallado> listaInventario = new List<InventarioDetallado> { };
             foreach (Producto p in productos)
@@ -54,7 +55,7 @@ namespace LogisticApp.ControladorasNegocio
                     IEnumerable<EntradaLote> lotes = p.getEntradasLotes();
                     foreach (EntradaLote l in lotes)
                     {
-                        stockActual += l.cantidadActual;
+                        stockActual += l.CantidadActual;
                     }
                     listaInventario.Add(new InventarioDetallado(p.codigo, p.nombre, stockActual, diasCobertura, lotes));
                 }
