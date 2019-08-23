@@ -1,21 +1,21 @@
 $(function () {
-    obtenerEntradas();
+    obtenerProductos();
 
     $("#buscar").click(function () {
-        alert("Esto deberia Filtrar las Entradas con base en un dato.");
+        alert("Esto deberia Filtrar los Producto con base en un dato.");
     });
 
     $("#registrar").click(function () {
-        location.href = "VistaAgregarEntrada.html";
+        location.href = "VistaAgregarProducto.html";
     });
 });
 
 /**
- * Función que busca todas las Entradas usando un Web Service.
+ * Función que busca todas los Productos usando un Web Service.
  */
-function obtenerEntradas() {
+function obtenerProductos() {
     var port = prompt("Ingrese el Puerto");
-    var url = "https://localhost:" + port + "/api/entradas";
+    var url = "https://localhost:" + port + "/api/productos";
 
     var promesa = $.get(url);
 
@@ -23,17 +23,12 @@ function obtenerEntradas() {
         var jsonRespuesta = JSON.parse(respuesta);
 
         var html = "";
-        for (donativo of jsonRespuesta) {
-            html += `<tr> <td>${entrada.codigo}</td>`;
-            html += `<td>${entrada.fechaHoraRegistro}</td>`
-            html += `<td>${entrada.ubicacion}</td>`
-            html += `<td>${entrada.cantidadInicial}</td>`
-            html += `<td>${entrada.origen}</td>`
-            html += `<td>${entrada.codigoProducto}</td>`
-            html += `<td>${entrada.nombreProducto}</td>`
-            html += `<td>${entrada.codigoRegistrador}</td>`
-            html += `<td>${entrada.nombreRegistrador}</td>`
-            html += ` <td>${donativo.observaciones}</td> </tr>`;
+        for (producto of jsonRespuesta) {
+            html += `<tr> <td>${producto.codigo}</td>`;
+            html += `<td>${producto.nombre}</td>`;
+            html += `<td>${producto.stockTotal}</td>`;
+            html += `<td>${producto.familia}</td>`;
+            html += ` <td>${producto.descripcion}</td> </tr>`;
         }
         document.getElementById("tbody").innerHTML = html;
     });
