@@ -258,10 +258,24 @@ namespace LogisticApp.Entidades
         // TODO: Elisa
         public Dictionary<string, double> getPronosticoVentas(DateTime fechaInicial, DateTime fechaFinal)
         {
-            int resultado = Datetime.Compare(fechaInicial, fechaFinal);
-            if (resultado=0 || resultado>0)
+            int resultado = DateTime.Compare(fechaInicial, fechaFinal);
+            List<SalidaExistencia> mesesalidas;
+
+            double sumaMeses=0;
+            double sumaVentas = 0;
+            double mesesxVentas = 0;
+            double sumaMesesxVentas = 0;
+
+            if (resultado>=0)
             {
                 throw new PeriodoNoValidoException(fechaInicial, fechaFinal);
+            }
+            foreach (SalidaExistencia salida in this.salidas)
+            {
+                if(salida.fechaHoraRegistro >= fechaInicial && salida.fechaHoraRegistro <= fechaFinal)
+                {
+
+                }
             }
 
             return null;
