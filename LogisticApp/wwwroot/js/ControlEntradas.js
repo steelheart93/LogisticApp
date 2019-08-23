@@ -23,7 +23,7 @@ function obtenerEntradas() {
         var jsonRespuesta = JSON.parse(respuesta);
 
         var html = "";
-        for (donativo of jsonRespuesta) {
+        for (entrada of jsonRespuesta) {
             html += `<tr> <td>${entrada.codigo}</td>`;
             html += `<td>${entrada.fechaHoraRegistro}</td>`
             html += `<td>${entrada.ubicacion}</td>`
@@ -33,7 +33,7 @@ function obtenerEntradas() {
             html += `<td>${entrada.nombreProducto}</td>`
             html += `<td>${entrada.codigoRegistrador}</td>`
             html += `<td>${entrada.nombreRegistrador}</td>`
-            html += ` <td>${donativo.observaciones}</td> </tr>`;
+            html += ` <td>${entrada.observaciones}</td> </tr>`;
         }
         document.getElementById("tbody").innerHTML = html;
     });

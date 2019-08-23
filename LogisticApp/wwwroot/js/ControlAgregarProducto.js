@@ -25,11 +25,11 @@ function getFormData($form) {
 }
 
 /**
- * Función que registra una nueva entrada usando un Web Service.
+ * Función que registra un nuevo Producto usando un Web Service.
  */
-function agregarEntrada(json) {
+function agregarProducto(json) {
     var port = prompt("Ingrese el Puerto");
-    var url = "https://localhost:" + port + "/api/entradas";
+    var url = "https://localhost:" + port + "/api/productos";
 
     var promesa = $.post(url, json);
 

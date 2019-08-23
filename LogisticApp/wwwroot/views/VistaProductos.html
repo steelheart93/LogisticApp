@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="../css/Estilos.css" />
     <script src="../js/JQuery.js"></script>
     <script src="../js/Bootstrap.js"></script>
-    <script src="../js/ControlEntradas.js"></script>
+    <script src="../js/ControlProductos.js"></script>
 </head>
 
 <body>
@@ -48,7 +48,7 @@
         <!-- Fin, NAVBAR fixed-top -->
 
         <br>
-        <h1>Gestionar Entradas</h1>
+        <h1>Gestionar Productos</h1>
         <hr class="separador">
 
         <br>
@@ -56,13 +56,13 @@
             <div class="row form-group">
                 <div class="col-lg-8">
                     <input type="text" class="form-control" name="dato"
-                           placeholder="Buscar entrada por ID, Ubicación, Origen o Nombre de Producto">
+                           placeholder="Buscar producto por COD, Familia o Nombre de Producto">
                 </div>
                 <div class="col-lg-1">
                     <button type="button" class="btn btn-primary" id="buscar">Buscar</button>
                 </div>
                 <div class="col-lg-1">
-                    <button type="button" class="btn btn-primary" id="registrar">Registrar Nueva Entrada</button>
+                    <button type="button" class="btn btn-primary" id="registrar">Registrar Nueva Producto</button>
                 </div>
 
             </div>
@@ -72,16 +72,11 @@
         <table class="table table-bordered table-striped table-dark">
             <thead class="bg-danger">
                 <tr>
-                    <th>ID Entrada - Lote</th>
-                    <th>Fecha - Hora</th>
-                    <th>Ubicación</th>
-                    <th>Cantidad</th>
-                    <th>Origen</th>
-                    <th>COD Producto</th>
-                    <th>Nombre Producto</th>
-                    <th>COD Registrador</th>
-                    <th>Nombre Registrador</th>
-                    <th>Observaciones</th>
+                    <th>COD</th>
+                    <th>Nombre</th>
+                    <th>Stock Total</th>
+                    <th>Familia</th>
+                    <th>Descripción</th>
                 </tr>
             </thead>
             <tbody id="tbody"></tbody>
