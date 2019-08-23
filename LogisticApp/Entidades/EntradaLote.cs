@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,10 @@ namespace LogisticApp.Entidades
     {
         // TODO: buscar la manera de que el usuario solo ingrese el código del
         // registrador y que el sistema sea el que ponga el Usuario registrador.
-        public Usuario registrador { get; private set; }
+        public Usuario Registrador { get; private set; }
+
+        [ForeignKey("Registrador")]
+        public string codigoRegistrador { get; private set; }
 
         [Key]
         public string codigo { get; private set; }

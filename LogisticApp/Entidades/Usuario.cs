@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using LogisticApp.Excepciones;
+using LogisticApp.Persistencia;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LogisticApp.Entidades
 {
@@ -11,7 +15,8 @@ namespace LogisticApp.Entidades
         public enum PerfilUsuario { Operario, Supervisor, Administrador };
 
         [Key]
-        public string Codigo { get; private set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string Codigo { get; set; }
         public string Documento { get; set; }
         public string Contraseña { get; set; }
         // TODO: pensar si se puede cambiar realmente el perfil
@@ -28,37 +33,49 @@ namespace LogisticApp.Entidades
 
         private Usuario()
         {
-
+            Activo = true;
         }
 
-        public static IEnumerable<Usuario> getUsuarios()
+        public static IEnumerable<Usuario> getUsuarios(AccesoDatos accesoDatos)
         {
-            return null;
+            return accesoDatos.Usuarios.Where(u => u.Activo);
         }
 
-        public static Usuario GetUsuario(string Codigo)
+        public static Usuario GetUsuario(string Codigo, AccesoDatos datos)
         {
-            return null;
+            Usuario usuario = datos.Usuarios.Find(Codigo);
+            if (usuario == null)
+            {
+                throw new UsuarioNoExisteException(Codigo);
+            }
+            return usuario;
         }
 
-        public static void addUsuario(Usuario usuario)
+        public static void addUsuario(Usuario usuario, AccesoDatos accesoDatos)
         {
-
+            try
+            {
+                GetUsuario(usuario.Codigo, accesoDatos);
+                throw new UsuarioYaExisteException(usuario.Codigo);
+            } catch (UsuarioNoExisteException) { }
+            accesoDatos.Usuarios.Add(usuario);
+            accesoDatos.SaveChanges();
         }
 
-        public static void actualizarUsuario(Usuario usuario)
+        public static void actualizarUsuario(Usuario usuarioNuevo, AccesoDatos accesoDatos)
         {
-
+            Usuario usuarioAntiguo = GetUsuario(usuarioNuevo.Codigo, accesoDatos); // Si no existe arroja exepción.
+            usuarioAntiguo.copiarse(usuarioNuevo);
+            accesoDatos.Entry(usuarioAntiguo).State = EntityState.Modified;
+            accesoDatos.SaveChanges();
         }
 
-        public static void modificarUsuario(Usuario usuario)
+        public static void desactivarUsuario(string CodigoUsuario, AccesoDatos accesoDatos)
         {
-
-        }
-
-        public static void desactivarUsuario(string CodigoUsuario)
-        {
-            GetUsuario(CodigoUsuario).desactivar();
+            Usuario usuario = GetUsuario(CodigoUsuario, accesoDatos);
+            usuario.desactivar();
+            accesoDatos.Entry(usuario).State = EntityState.Modified;
+            accesoDatos.SaveChanges();
         }
 
         public void desactivar()
@@ -66,6 +83,17 @@ namespace LogisticApp.Entidades
             Activo = false;
         }
 
+        public void copiarse(Usuario otro)
+        {
+            this.Documento = otro.Documento;
+            this.Contraseña = otro.Contraseña;
+            this.Perfil = otro.Perfil;
+            this.Nombres = otro.Nombres;
+            this.Apellidos = otro.Apellidos;
+            this.Correo = otro.Correo;
+            this.Telefono = otro.Telefono;
+            this.Direccion = otro.Direccion;
+        }
 
     }
 }
