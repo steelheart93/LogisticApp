@@ -1,31 +1,34 @@
-﻿using System;
+﻿using LogisticApp.Entidades;
+using LogisticApp.Persistencia;
+using LogisticApp.VistasModelos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LogisticApp.ControladorasNegocio
 {
-    public class ControladoraEntradas : ControllerBase
+    public class ControladoraEntradas
     {
         /**
          * Método que retorna la información de las Entrada para la Vista
          */
-        public IEnumerable<EntradaDetallada> GetEntradas()
+        public IEnumerable<EntradaDetallada> GetEntradas(AccesoDatos accesoDatos)
         {
             List<EntradaDetallada> listaEntradas = new List<EntradaDetallada> { };
 
-            IEnumerable<Producto> productos = Producto.GetProductos();
+            IEnumerable<Producto> productos = Producto.getProductos(accesoDatos);
             foreach (Producto p in productos)
             {
-                IEnumerable<EntradaLote> entradas = p.GetEntradasLotes();
+                IEnumerable<EntradaLote> entradas = p.getEntradasLotes();
                 foreach (EntradaLote e in entradas)
                 {
-                    r = e.Registrador;
+                    var r = e.registrador;
                     string nombreCompleto = r.Nombres + r.Apellidos;
 
                     listaEntradas.Add(new EntradaDetallada(e.Codigo, e.FechaHoraRegistro,
                         e.Ubicacion, e.Origen, e.CantidadInicial, e.Observaciones,
-                        p.Codigo, p.Nombre, r.Codigo, nombreCompleto));
+                        p.codigo, p.nombre, r.Codigo, nombreCompleto));
                 }
             }
 
@@ -35,34 +38,34 @@ namespace LogisticApp.ControladorasNegocio
         /**
          * Método agrega una nueva entrada al Contexto
          */
-        public void AddEntrada(string codigoProducto, EntradaLote entrada)
+        public void AddEntrada(string codigoProducto, EntradaLote entrada, AccesoDatos accesoDatos)
         {
-            Producto p = Producto.getProducto(codigoProducto);
+            Producto p = Producto.getProducto(codigoProducto, accesoDatos);
             p.addEntradaLote(entrada);
         }
 
         /**
          * Método que retorna la lista de Entradas Filtradas por un dato de la Entrada.
          */
-        public IEnumerable<EntradaDetallada> GetEntradas(String datoEntrada)
+        public IEnumerable<EntradaDetallada> GetEntradas(String datoEntrada, AccesoDatos accesoDatos)
         {
             List<EntradaDetallada> listaEntradas = new List<EntradaDetallada> { };
 
-            IEnumerable<Producto> productos = Producto.GetProductos();
+            IEnumerable<Producto> productos = Producto.getProductos(accesoDatos);
             foreach (Producto p in productos)
             {
-                IEnumerable<EntradaLote> entradas = p.GetEntradasLotes();
+                IEnumerable<EntradaLote> entradas = p.getEntradasLotes();
                 foreach (EntradaLote e in entradas)
                 {
                     if (e.Codigo == datoEntrada || e.Ubicacion == datoEntrada ||
-                        e.Origen == datoEntrada || p.Nombre == datoEntrada)
+                        e.Origen == datoEntrada || p.nombre == datoEntrada)
                     {
-                        r = e.Registrador;
+                        var r = e.registrador;
                         string nombreCompleto = r.Nombres + r.Apellidos;
 
                         listaEntradas.Add(new EntradaDetallada(e.Codigo, e.FechaHoraRegistro,
                             e.Ubicacion, e.Origen, e.CantidadInicial, e.Observaciones,
-                            p.Codigo, p.Nombre, r.Codigo, nombreCompleto));
+                            p.codigo, p.nombre, r.Codigo, nombreCompleto));
                     }
 
                 }

@@ -13,7 +13,7 @@ namespace LogisticApp.VistasModelos
         public DateTime fechaHoraRegistro { get; private set; }
         public string ubicacion { get; private set; }
         public string origen { get; private set; }
-        public string cantidadInicial { get; private set; }
+        public int cantidadInicial { get; private set; }
         public string observaciones { get; private set; }
 
         // Datos del Producto
@@ -29,7 +29,7 @@ namespace LogisticApp.VistasModelos
          * Constructor de la Clase Entrada Detallada 
          */
         public EntradaDetallada(string codigo, DateTime fechaHoraRegistro,
-            string ubicacion, string origen, string cantidadInicial, string observaciones,
+            string ubicacion, string origen, int cantidadInicial, string observaciones,
             string codigoProducto, string nombreProducto, string codigoRegistrador, string nombreRegistrador)
         {
             this.codigo = codigo;
