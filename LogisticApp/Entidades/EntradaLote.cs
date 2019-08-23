@@ -10,32 +10,32 @@ namespace LogisticApp.Entidades
     {
         // TODO: buscar la manera de que el usuario solo ingrese el código del
         // registrador y que el sistema sea el que ponga el Usuario registrador.
-        public Usuario registrador { get; private set; }
+        public Usuario Registrador { get; private set; }
 
         [Key]
-        public string codigo { get; private set; }
+        public string Codigo { get; private set; }
 
         [Range(1, int.MaxValue)]
-        public int cantidadInicial { get; private set; }
+        public int CantidadInicial { get; private set; }
         // TODO: buscar la manera de que la cantidad actual se inicialice con la 
         // cantidad inicial
-        public int cantidadActual { get; private set; }
-        public string origen { get; private set; }
-        public DateTime fechaExpiracion { get; private set; }
+        public int CantidadActual { get; private set; }
+        public string Origen { get; private set; }
+        public DateTime FechaExpiracion { get; private set; }
         // TODO: buscar la manera de que el sistema sea el que ponga la fecha y
         // hora de registro
-        public DateTime fechaHoraRegistro { get; private set; }
-        public string ubicacion { get; private set; }
-        public string observaciones { get; private set; }
+        public DateTime FechaHoraRegistro { get; private set; }
+        public string Ubicacion { get; private set; }
+        public string Observaciones { get; private set; }
 
-        public void decrementarCantidadActual(int cantidad)
+        public void DecrementarCantidadActual(int cantidad)
         {
-            if (cantidad > cantidadActual || cantidad < 0)
+            if (cantidad > CantidadActual || cantidad < 0)
             {
                 throw new Excepciones.CantidadNoValidaException(cantidad);
             }
 
-            cantidadActual -= cantidad;
+            CantidadActual -= cantidad;
         }
 
         // Es opcional poner un constructor privado.
