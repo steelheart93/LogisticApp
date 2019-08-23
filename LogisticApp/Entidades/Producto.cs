@@ -20,7 +20,7 @@ namespace LogisticApp.Entidades
         public int stockTotal { get; private set; }
         public string familia { get; set; }
         public string descripcion { get; set; }
-        public bool activo { get; private set;}
+        public bool activo { get; private set; }
         public ICollection<EntradaLote> entradas { get; private set; }
         public ICollection<SalidaExistencia> salidas { get; private set; }
 
@@ -80,7 +80,8 @@ namespace LogisticApp.Entidades
             {
                 getProducto(producto.codigo, accesoDatos);
                 throw new ProductoYaExisteException(producto.codigo);
-            } catch (ProductoNoExisteException) { }
+            }
+            catch (ProductoNoExisteException) { }
             accesoDatos.Productos.Add(producto);
             accesoDatos.SaveChanges();
         }
@@ -123,7 +124,7 @@ namespace LogisticApp.Entidades
             this.activo = otro.activo;
             this.entradas = otro.entradas;
             this.salidas = otro.salidas;
-    }
+        }
 
         ///<summary>
         ///Consulta todas las entradas asociadas al producto
@@ -177,7 +178,7 @@ namespace LogisticApp.Entidades
         /// </summary>
         /// <param name="salidaExistencia">Engresa la salida deseada</param>
         public void addSalidaExistencia(SalidaExistencia salidaExistencia)
-        { 
+        {
             if (this.stockTotal >= salidaExistencia.getCantidadSalida())
             {
                 salidas.Add(salidaExistencia);
@@ -224,7 +225,7 @@ namespace LogisticApp.Entidades
                 {
                     fechaInicial = salida.fechaHoraRegistro;
                     fechaFinal = salida.fechaHoraRegistro;
-                }                
+                }
                 if (salida.fechaHoraRegistro < fechaInicial)
                 {
                     fechaInicial = salida.fechaHoraRegistro;
@@ -259,33 +260,35 @@ namespace LogisticApp.Entidades
         public Dictionary<string, double> getPronosticoVentas(DateTime fechaInicial, DateTime fechaFinal)
         {
             int resultado = DateTime.Compare(fechaInicial, fechaFinal);
-            
+
             Dictionary<string, double> ventas = new Dictionary<string, double>();
-            double suma=0;
-            int meses=0;
-            
-            if (resultado>=0)
+            double suma = 0;
+            int meses = 0;
+
+            if (resultado >= 0)
             {
                 throw new PeriodoNoValidoException(fechaInicial, fechaFinal);
             }
 
             foreach (SalidaExistencia salida in this.salidas)
             {
-                if(salida.fechaHoraRegistro >= fechaInicial && salida.fechaHoraRegistro <= fechaFinal)
+                if (salida.fechaHoraRegistro >= fechaInicial && salida.fechaHoraRegistro <= fechaFinal)
                 {
-                    string mesAno = salida.fechaHoraRegistro.Month.ToString()+salida.fechaHoraRegistro.Year.ToString();
-                    if(ventas.Contains(mesAno)){
+                    string mesAno = salida.fechaHoraRegistro.Month.ToString() + salida.fechaHoraRegistro.Year.ToString();
+                    if (ventas.ContainsKey(mesAno))
+                    {
                         ventas[mesAno] = ventas[mesAno] + salida.getCantidadSalida();
                     }
-                    else{
-                        ventas.Add(mesAno,salida.getCantidadSalida);
-                        meses+=1;
+                    else
+                    {
+                        ventas.Add(mesAno, salida.getCantidadSalida());
+                        meses += 1;
                     }
-                    suma+=salida.getCantidadSalida;
+                    suma += salida.getCantidadSalida();
                 }
-            }            
+            }
 
-            ventas.Add(fechaFinal.AddMonths(1).Month.ToString()+fechaFinal.Year.ToString(),(suma/meses));
+            ventas.Add(fechaFinal.AddMonths(1).Month.ToString() + fechaFinal.Year.ToString(), (suma / meses));
 
             return ventas;
         }
