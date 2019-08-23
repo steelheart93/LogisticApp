@@ -10,7 +10,8 @@ namespace LogisticApp.Entidades
     public class SalidaExistencia
     {
         [Key]
-        public string codigo { get; private set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string codigo { get; set; }
         public DateTime fechaHoraRegistro { get; private set; }
         public string destino { get; private set; }
         public string observaciones { get; private set; }
