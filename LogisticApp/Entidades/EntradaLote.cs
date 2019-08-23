@@ -11,7 +11,7 @@ namespace LogisticApp.Entidades
     {
         // TODO: buscar la manera de que el usuario solo ingrese el código del
         // registrador y que el sistema sea el que ponga el Usuario registrador.
-        public Usuario registrador { get; private set; }
+        public Usuario Registrador { get; private set; }
 
         [Key]
         public string Codigo { get; private set; }
