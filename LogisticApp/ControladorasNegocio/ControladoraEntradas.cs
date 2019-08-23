@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LogisticApp.Entidades;
+using LogisticApp.Persistencia;
+using LogisticApp.VistasModelos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +23,7 @@ namespace LogisticApp.ControladorasNegocio
                 IEnumerable<EntradaLote> entradas = p.getEntradasLotes();
                 foreach (EntradaLote e in entradas)
                 {
-                    r = e.Registrador;
+                    Usuario r = e.Registrador;
                     string nombreCompleto = r.Nombres + r.Apellidos;
 
                     listaEntradas.Add(new EntradaDetallada(e.Codigo, e.FechaHoraRegistro,
@@ -57,7 +60,7 @@ namespace LogisticApp.ControladorasNegocio
                     if (e.Codigo == datoEntrada || e.Ubicacion == datoEntrada ||
                         e.Origen == datoEntrada || p.nombre == datoEntrada)
                     {
-                        r = e.Registrador;
+                        Usuario r = e.Registrador;
                         string nombreCompleto = r.Nombres + r.Apellidos;
 
                         listaEntradas.Add(new EntradaDetallada(e.Codigo, e.FechaHoraRegistro,
