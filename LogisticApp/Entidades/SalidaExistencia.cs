@@ -15,7 +15,7 @@ namespace LogisticApp.Entidades
         public string observaciones { get; private set; }
 
         public Dictionary<EntradaLote, int> lotesSalida { get; private set; }
-        public Usuario? registrador { get; private set; }
+        public Usuario registrador { get; private set; }
 
         public int getCantidadSalida()
         {

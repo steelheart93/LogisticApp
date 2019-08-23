@@ -7,25 +7,50 @@ using LogisticApp.Entidades;
 
 namespace LogisticApp.ControladorasNegocio
 {
-    [Route("api/controladorasNegocio")]
-    [ApiController]
     public class ControladoraInventario : ControllerBase
     {
-        private readonly <dbcontext> _context;
-
-        public ControladoraInventario(<dbcontext> context)
+        public IEnumerable<SalidaDetallada> getInventario()
         {
-            _context = context;
+            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<SalidaExistencia> salidas;
+            List<SalidaDetallada> listaSalidas = new List<SalidaDetallada> { };
+            foreach (Producto p in productos)
+            {
+                salidas = p.getSalidasExistencias();
+                double diasCobertura = p.getDiasCobertura();
+                int stockActual = 0;
+                IEnumerable<EntradaLote> lotes = p.getEntradasLotes();
+                foreach (EntradaLote l in lotes)
+                {
+                    stockActual += l.cantidadActual;
+                }
+                listaSalidas.Add(new InventarioDetallado(p.codigo, p.nombre, stockActual, diasCobertura, lotes));
+                
+            }
+            return listaSalidas;
         }
 
-        public JsonResult getInventario()
+        public IEnumerable<SalidaDetallada> filtrarInventario(string datoProducto)
         {
-            return _context.Productos.ToList();
-        }
-
-        public JsonResult filtrarInventario(string datosProducto)
-        {
-            return _context.SalidaExistencias.find(datosProducto);
+            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<SalidaExistencia> salidas;
+            List<SalidaDetallada> listaSalidas = new List<SalidaDetallada> { };
+            foreach (Producto p in productos)
+            {
+                if (p.nombre == datoProducto || p.codigo == datoProducto)
+                {
+                    salidas = p.getSalidasExistencias();
+                    double diasCobertura = p.getDiasCobertura();
+                    int stockActual = 0;
+                    IEnumerable<EntradaLote> lotes = p.getEntradasLotes();
+                    foreach (EntradaLote l in lotes)
+                    {
+                        stockActual += l.cantidadActual;
+                    }
+                    listaSalidas.Add(new InventarioDetallado(p.codigo, p.nombre, stockActual, diasCobertura, lotes));
+                }
+            }
+            return listaSalidas;
         }
     }
 }
