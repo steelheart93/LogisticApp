@@ -14,7 +14,7 @@ namespace LogisticApp.ControladorasNegocio
         /// Obtiene una lista de todos los productos con su stock actual, lotes y dias de cobertura
         /// </summary>
         /// <returns>lista de todos los productos con su stock actual, lotes y dias de cobertura</returns>
-        public IEnumerable<InventarioDetallado> getInventario(DateTime fechaInicial, DateTime fechaFinal)
+        public IEnumerable<InventarioDetallado> getInventario()
         {
             IEnumerable<Producto> productos = Producto.getProductos();
             IEnumerable<SalidaExistencia> salidas;
@@ -22,7 +22,7 @@ namespace LogisticApp.ControladorasNegocio
             foreach (Producto p in productos)
             {
                 salidas = p.getSalidasExistencias();
-                double diasCobertura = p.getDiasCobertura(fechaInicial, fechaFinal);
+                double diasCobertura = p.getDiasCobertura();
                 int stockActual = 0;
                 IEnumerable<EntradaLote> lotes = p.getEntradasLotes();
                 foreach (EntradaLote l in lotes)
@@ -39,7 +39,7 @@ namespace LogisticApp.ControladorasNegocio
         /// </summary>
         /// <param name="datoProducto">texto según el cual se realiza el filtrado</param>
         /// <returns>Lista de salidas que coinciden con la búsqueda(JsonResult)</returns>
-        public IEnumerable<InventarioDetallado> filtrarInventario(DateTime fechaInicial, DateTime fechaFinal, string datoProducto)
+        public IEnumerable<InventarioDetallado> filtrarInventario(string datoProducto)
         {
             IEnumerable<Producto> productos = Producto.getProductos();
             IEnumerable<SalidaExistencia> salidas;
@@ -49,7 +49,7 @@ namespace LogisticApp.ControladorasNegocio
                 if (p.nombre == datoProducto || p.codigo == datoProducto)
                 {
                     salidas = p.getSalidasExistencias();
-                    double diasCobertura = p.getDiasCobertura(fechaInicial, fechaFinal);
+                    double diasCobertura = p.getDiasCobertura();
                     int stockActual = 0;
                     IEnumerable<EntradaLote> lotes = p.getEntradasLotes();
                     foreach (EntradaLote l in lotes)
