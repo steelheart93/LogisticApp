@@ -38,6 +38,8 @@ namespace LogisticApp.ControladorasNegocio
         {
             Producto p = Producto.getProducto(codigoProducto, accesoDatos);
             p.addSalidaExistencia(salida);
+            accesoDatos.Entry(p).State = EntityState.Modified;
+            accesoDatos.SaveChanges();
         }
         /// <summary>
         /// Obtiene los lotes existentes para el producto referenciado

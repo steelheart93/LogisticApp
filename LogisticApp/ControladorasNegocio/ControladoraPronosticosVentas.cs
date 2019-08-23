@@ -7,7 +7,7 @@ namespace LogisticApp.ControladorasNegocio
 {
     public class ControladoraPronosticosVentas
     {
-        public JsonResult getPronosticosVentas(string codigoProducto, DateTime fechaInicial, DateTime fechafinal)
+        public void getPronosticosVentas(string codigoProducto, DateTime fechaInicial, DateTime fechafinal)
         {
 
         }
