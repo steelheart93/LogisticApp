@@ -211,8 +211,11 @@ namespace LogisticApp.Entidades
         /// <param name="fechaFinal">fecha final del periodo deseado</param>
         /// <param name="fechaInicial">fecha inicial del periodo deseado</param>
         /// <returns>retorna calculo de los días de cobertura</returns>
-        public double getDiasCobertura(DateTime fechaInicial, DateTime fechaFinal)
+        public double getDiasCobertura()
         {
+            DateTime fechaInicial = new DateTime();
+            DateTime fechaFinal = new DateTime();
+            Boolean primeraVez = true;
             double vendidos = 0;
             double dias = 1;
             double stockTotal = 0;
@@ -220,10 +223,20 @@ namespace LogisticApp.Entidades
             double respuesta = 0;
             foreach (SalidaExistencia salida in this.salidas)
             {
-                if (salida.fechaHoraRegistro >= fechaInicial && salida.fechaHoraRegistro <= fechaFinal)
+                if (primeraVez)
                 {
-                    vendidos += salida.getCantidadSalida();
+                    fechaInicial = salida.fechaHoraRegistro;
+                    fechaFinal = salida.fechaHoraRegistro;
+                }                
+                if (salida.fechaHoraRegistro < fechaInicial)
+                {
+                    fechaInicial = salida.fechaHoraRegistro;
                 }
+                if (salida.fechaHoraRegistro > fechaFinal)
+                {
+                    fechaFinal = salida.fechaHoraRegistro;
+                }
+                vendidos += salida.getCantidadSalida();
             }
             stockTotal = (double)this.stockTotal;
             TimeSpan ts = fechaFinal - fechaInicial;

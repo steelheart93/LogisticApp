@@ -10,22 +10,22 @@ namespace LogisticApp.ControladorasNegocio
         /**
          * Método que retorna la información de las Entrada para la Vista
          */
-        public IEnumerable<EntradaDetallada> getEntradas()
+        public IEnumerable<EntradaDetallada> GetEntradas()
         {
             List<EntradaDetallada> listaEntradas = new List<EntradaDetallada> { };
 
-            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<Producto> productos = Producto.GetProductos();
             foreach (Producto p in productos)
             {
-                IEnumerable<EntradaLote> entradas = p.getEntradasLotes();
+                IEnumerable<EntradaLote> entradas = p.GetEntradasLotes();
                 foreach (EntradaLote e in entradas)
                 {
-                    r = e.registrador;
-                    string nombreCompleto = r.nombres + r.apellidos;
+                    r = e.Registrador;
+                    string nombreCompleto = r.Nombres + r.Apellidos;
 
-                    listaEntradas.Add(new EntradaDetallada(e.codigo, e.fechaHoraRegistro,
-                        e.ubicacion, e.origen, e.cantidadInicial, e.observaciones,
-                        p.codigo, p.nombre, r.codigo, nombreCompleto));
+                    listaEntradas.Add(new EntradaDetallada(e.Codigo, e.FechaHoraRegistro,
+                        e.Ubicacion, e.Origen, e.CantidadInicial, e.Observaciones,
+                        p.Codigo, p.Nombre, r.Codigo, nombreCompleto));
                 }
             }
 
@@ -35,7 +35,7 @@ namespace LogisticApp.ControladorasNegocio
         /**
          * Método agrega una nueva entrada al Contexto
          */
-        public void addEntrada(string codigoProducto, EntradaLote entrada)
+        public void AddEntrada(string codigoProducto, EntradaLote entrada)
         {
             Producto p = Producto.getProducto(codigoProducto);
             p.addEntradaLote(entrada);
@@ -44,23 +44,27 @@ namespace LogisticApp.ControladorasNegocio
         /**
          * Método que retorna la lista de Entradas Filtradas por un dato de la Entrada.
          */
-        public IEnumerable<EntradaDetallada> getEntradas(String datoEntrada)
+        public IEnumerable<EntradaDetallada> GetEntradas(String datoEntrada)
         {
             List<EntradaDetallada> listaEntradas = new List<EntradaDetallada> { };
 
-            IEnumerable<Producto> productos = Producto.getProductos();
+            IEnumerable<Producto> productos = Producto.GetProductos();
             foreach (Producto p in productos)
             {
-                IEnumerable<EntradaLote> entradas = p.getEntradasLotes();
+                IEnumerable<EntradaLote> entradas = p.GetEntradasLotes();
                 foreach (EntradaLote e in entradas)
                 {
-                    if (e.codigo == datoEntrada || e.ubicacion == datoEntrada || e.origen == datoEntrada || p.nombre == datoEntrada)
-                        r = e.registrador;
-                    string nombreCompleto = r.nombres + r.apellidos;
+                    if (e.Codigo == datoEntrada || e.Ubicacion == datoEntrada ||
+                        e.Origen == datoEntrada || p.Nombre == datoEntrada)
+                    {
+                        r = e.Registrador;
+                        string nombreCompleto = r.Nombres + r.Apellidos;
 
-                    listaEntradas.Add(new EntradaDetallada(e.codigo, e.fechaHoraRegistro,
-                        e.ubicacion, e.origen, e.cantidadInicial, e.observaciones,
-                        p.codigo, p.nombre, r.codigo, nombreCompleto));
+                        listaEntradas.Add(new EntradaDetallada(e.Codigo, e.FechaHoraRegistro,
+                            e.Ubicacion, e.Origen, e.CantidadInicial, e.Observaciones,
+                            p.Codigo, p.Nombre, r.Codigo, nombreCompleto));
+                    }
+
                 }
             }
 

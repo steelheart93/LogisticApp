@@ -10,36 +10,81 @@
     <link rel="stylesheet" type="text/css" media="screen" href="../css/Bootstrap.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="../css/Estilos.css" />
     <script src="../js/JQuery.js"></script>
-    <script src="../js/ControlAgregarEntrada"></script>
+    <script src="../js/Bootstrap.js"></script>
+    <script src="../js/ControlAgregarEntrada.js"></script>
 </head>
 
 <body>
     <div class="container">
+        <!-- Inicio, NAVBAR fixed-top -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-primary">
+            <a class="navbar-brand" href="../index.html">LogisticApp</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#contenido"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="contenido">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="VistaProductos.html">Productos</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="VistaEntradas.html">Entradas</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="VistaSalidas.html">Salidas</a>
+                    </li>
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <span class="navbar-text mr-sm-2" id="usuario">Pedro Pablo Perez Piedrahita (Operario)</span>
+                    <button class="btn btn-danger my-2 my-sm-0" type="button" id="salir">Salir</button>
+                </form>
+            </div>
+        </nav>
+        <br><br>
+        <!-- Fin, NAVBAR fixed-top -->
+
         <br>
         <h1>Agregar Entrada</h1>
         <hr class="separador">
 
         <br>
         <form id="formulario">
-            <div class="form-group">
-                <label for="ubicacion">Ubicación</label>
-                <input type="text" class="form-control" name="ubicacion" placeholder="Ubicación">
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="ubicacion">Ubicación</label>
+                    <input type="text" class="form-control" name="ubicacion" placeholder="Ubicación">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" class="form-control" name="cantidad" placeholder="Cantidad">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label for="origen">Origen</label>
+                    <input type="text" class="form-control" name="origen" placeholder="Origen">
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="fechaExp">Fecha de Expiración</label>
+                    <input type="datetime-local" class="form-control" name="fechaExp" placeholder="Fecha de Expiración">
+                </div>
             </div>
             <div class="form-group">
-                <label for="cantidad">Cantidad</label>
-                <input type="number" class="form-control" name="cantidad" placeholder="Cantidad">
-            </div>
-            <div class="form-group">
-                <label for="origen">Origen</label>
-                <input type="text" class="form-control" name="origen" placeholder="Origen">
+                <label for="producto">Producto</label>
+                <select class="form-control" name="producto">
+                    <option>COD Producto - Nombre Producto</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="observaciones">Observaciones</label>
-                <input type="text" class="form-control" name="observaciones" placeholder="Observaciones">
-            </div>
-            <div class="form-group">
-                <label for="fechaExp">Fecha de Expiración</label>
-                <input type="datetime-local" class="form-control" name="fechaExp" placeholder="Fecha de Expiración">
+                <textarea class="form-control" name="observaciones" placeholder="Observaciones" rows="2"></textarea>
             </div>
             <button type="button" class="btn btn-primary" id="registrar">Registrar</button>
         </form>
