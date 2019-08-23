@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LogisticApp.Entidades
 {
@@ -14,8 +15,12 @@ namespace LogisticApp.Entidades
         public string destino { get; private set; }
         public string observaciones { get; private set; }
 
+        [NotMapped]
         public Dictionary<EntradaLote, int> lotesSalida { get; private set; }
         public Usuario registrador { get; private set; }
+
+        [ForeignKey("registrador")]
+        public string codigoRegistrador { get; private set; }
 
         /// <summary>
         /// Método usado para obtener la cantidad de productos totales de una salida

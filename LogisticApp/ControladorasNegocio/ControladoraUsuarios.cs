@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LogisticApp.Entidades;
+using LogisticApp.Persistencia;
 
 namespace LogisticApp.ControladorasNegocio
 {
@@ -13,26 +14,27 @@ namespace LogisticApp.ControladorasNegocio
 
         }
 
-        public static IEnumerable<Usuario> getUsuarios()
+        public static IEnumerable<Usuario> getUsuarios(AccesoDatos accesoDatos)
         {
-            return Usuario.getUsuarios(); //chulito
+            return Usuario.getUsuarios(accesoDatos); //chulito
         }
 
+        /*
         public Usuario GetUsuario(string Codigo)
         {
             return Usuario.GetUsuario(Codigo);
-        }
+        }*/
 
-        public void addUsuario(Usuario usuario)
+        public static void addUsuario(Usuario usuario, AccesoDatos accesoDatos)
         {
-            Usuario.addUsuario(usuario);
+            Usuario.addUsuario(usuario, accesoDatos);
         }
 
-        public IEnumerable<Usuario> filtrarUsuarios(string datoUsuario)
+        public static IEnumerable<Usuario> filtrarUsuarios(string datoUsuario, AccesoDatos accesoDatos)
         {
             //Usuario.filtrarUsuario(datoUsuario);
             string dato = datoUsuario.ToLower();
-            return from usuario in Usuario.getUsuarios()
+            return from usuario in Usuario.getUsuarios(accesoDatos)
                    where usuario.Codigo.Contains(dato)
                     || usuario.Documento.Contains(dato)
                     || usuario.Nombres.ToLower().Contains(dato)
@@ -41,14 +43,14 @@ namespace LogisticApp.ControladorasNegocio
                    
         }
 
-        public void modificarUsuario(Usuario usuario)
+        public static void modificarUsuario(Usuario usuario, AccesoDatos accesoDatos)
         {
-            Usuario.modificarUsuario(usuario);
+            Usuario.actualizarUsuario(usuario, accesoDatos);
         }
 
-        public void desactivarUsuario(string codigo)
+        public static void desactivarUsuario(string codigo, AccesoDatos accesoDatos)
         {
-            Usuario.desactivarUsuario(codigo);
+            Usuario.desactivarUsuario(codigo, accesoDatos);
         }
     }
 }

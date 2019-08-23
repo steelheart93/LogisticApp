@@ -158,16 +158,57 @@ namespace LogisticApp.Entidades
             return null;
         }
 
+        /// <summary>
+        /// Obtiene los días de cobertura de un producto
+        /// </summary>
+        /// <param name="fechaInicial">Fecha inicial para el cálculo</param>
+        /// <param name="fechaFinal">Fecha final para el cálculo</param>
+        /// <returns>Días de cobertura de un producto(double)</returns>
         ///<summary>
         ///Consulta los dias de cobertura del producto
         /// </summary>
         /// <param name="fechaFinal">fecha final del periodo deseado</param>
         /// <param name="fechaInicial">fecha inicial del periodo deseado</param>
         /// <returns>retorna calculo de los días de cobertura</returns>
-        // TODO: Juan Pablo
-        public double getDiasCobertura(DateTime fechaInicial, DateTime fechaFinal)
+        public double getDiasCobertura()
         {
-            return 0;
+            DateTime fechaInicial = new DateTime();
+            DateTime fechaFinal = new DateTime();
+            Boolean primeraVez = true;
+            double vendidos = 0;
+            double dias = 1;
+            double stockTotal = 0;
+            double ventasDiarias = 1;
+            double respuesta = 0;
+            foreach (SalidaExistencia salida in this.salidas)
+            {
+                if (primeraVez)
+                {
+                    fechaInicial = salida.fechaHoraRegistro;
+                    fechaFinal = salida.fechaHoraRegistro;
+                }                
+                if (salida.fechaHoraRegistro < fechaInicial)
+                {
+                    fechaInicial = salida.fechaHoraRegistro;
+                }
+                if (salida.fechaHoraRegistro > fechaFinal)
+                {
+                    fechaFinal = salida.fechaHoraRegistro;
+                }
+                vendidos += salida.getCantidadSalida();
+            }
+            stockTotal = (double)this.stockTotal;
+            TimeSpan ts = fechaFinal - fechaInicial;
+            dias = ts.Days;
+            if (dias > 0)
+            {
+                ventasDiarias = vendidos / dias;
+            }
+            if (ventasDiarias > 0)
+            {
+                respuesta = stockTotal / ventasDiarias;
+            }
+            return respuesta;
         }
 
         ///<summary>
