@@ -158,16 +158,44 @@ namespace LogisticApp.Entidades
             return null;
         }
 
+        /// <summary>
+        /// Obtiene los días de cobertura de un producto
+        /// </summary>
+        /// <param name="fechaInicial">Fecha inicial para el cálculo</param>
+        /// <param name="fechaFinal">Fecha final para el cálculo</param>
+        /// <returns>Días de cobertura de un producto(double)</returns>
         ///<summary>
         ///Consulta los dias de cobertura del producto
         /// </summary>
         /// <param name="fechaFinal">fecha final del periodo deseado</param>
         /// <param name="fechaInicial">fecha inicial del periodo deseado</param>
         /// <returns>retorna calculo de los días de cobertura</returns>
-        // TODO: Juan Pablo
         public double getDiasCobertura(DateTime fechaInicial, DateTime fechaFinal)
         {
-            return 0;
+            double vendidos = 0;
+            double dias = 1;
+            double stockTotal = 0;
+            double ventasDiarias = 1;
+            double respuesta = 0;
+            foreach (SalidaExistencia salida in this.salidas)
+            {
+                if (salida.fechaHoraRegistro >= fechaInicial && salida.fechaHoraRegistro <= fechaFinal)
+                {
+                    vendidos += salida.getCantidadSalida();
+                }
+            }
+            stockTotal = (double)this.stockTotal;
+            TimeSpan ts = fechaFinal - fechaInicial;
+            dias = ts.Days;
+            if (dias > 0)
+            {
+                ventasDiarias = vendidos / dias;
+            }
+            if (ventasDiarias > 0)
+            {
+                respuesta = stockTotal / ventasDiarias;
+            }
+            return respuesta;
         }
 
         ///<summary>
