@@ -16,11 +16,11 @@ namespace LogisticApp.ControladorasNegocio
         /// <param name="fechaInicial"> Fecha inicial del periodo a calcular</param>
         /// <param name="fechafinal"> Fecha final del periodo a calcular</param>
         /// <param name="accesoDatos"></param>
-        public void getPronosticosVentas(string codigoProducto, DateTime fechaInicial, DateTime fechafinal, AccesoDatos accesoDatos)
+        public static Dictionary<string, double> getPronosticosVentas(string codigoProducto, DateTime fechaInicial, DateTime fechaFinal, AccesoDatos accesoDatos)
         {
             Producto producto = Producto.getProducto(codigoProducto, accesoDatos);
 
-            producto.getPronosticoVentas(fechaInicial, fechaFinal);
+            return producto.getPronosticoVentas(fechaInicial, fechaFinal);
         }
     }
 }

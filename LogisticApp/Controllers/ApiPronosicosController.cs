@@ -25,11 +25,11 @@ namespace LogisticApp.Controllers
 
         // GET logisticapp.com/api/pronosticos
         [HttpGet]
-        public ActionResult GetPronosticosVentas(string codigoProducto, DateTime fechaInicial, DateTime fechafinal)
+        public ActionResult<Dictionary<string, double>> GetPronosticosVentas(string codigoProducto, DateTime fechaInicial, DateTime fechafinal)
         {
             return ControladoraPronosticosVentas.getPronosticosVentas(codigoProducto, fechaInicial, fechafinal, accesoDatos);
         }
 
-        
+
     }
 }
